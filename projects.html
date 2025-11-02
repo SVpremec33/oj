@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Задания{% endblock %}
+
+{% block content %}
+<section class="projects-list">
+    <h2>Опубликованные задания</h2>
+
+    {% if projects %}
+        {% for project in projects %}
+        <div class="project-card">
+            <h3>{{ project.title }}</h3>
+            <p class="desc">{{ project.description }}</p>
+            <p class="budget">Бюджет: <strong>{{ project.budget }} ₸</strong></p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty">Пока нет заданий 😔</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Поиск фрилансеров{% endblock %}
+{% block content %}
+<section class="search-section">
+    <h2>Поиск исполнителей</h2>
+    <form method="post" action="/search">
+        <input type="text" name="query" placeholder="Введите имя или навык" value="{{ query }}">
+        <button type="submit" class="btn">Поиск</button>
+    </form>
+
+    {% if results %}
+    <ul class="freelancer-list">
+        {% for user in results %}
+        <li>
+            <h3>
+                <a href="{{ url_for('user_profile', username=user.username) }}">
+                    {{ user.username }}
+                </a>
+                — {{ user.skills }}
+            </h3>
+            <p><strong>Навыки:</strong> {{ user.skills or "Не указаны" }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% elif query %}
+    <p>Ничего не найдено</p>
+    {% endif %}
+</section>
+{% endblock %}

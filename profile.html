@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Профиль {{ user.username }}{% endblock %}
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <h2>👤 {{ user.username }}</h2>
+        <p><strong>Роль:</strong> {{ user.role }}</p>
+        <p><strong>Навыки:</strong> {{ user.skills or "не указаны" }}</p>
+
+        <hr>
+
+        <h3>Отзывы:</h3>
+        {% if reviews %}
+            <ul class="review-list">
+                {% for r in reviews %}
+                    <li>
+                        <strong>{{ r.author }}:</strong> 
+                        {{ r.review }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Пока нет отзывов</p>
+        {% endif %}
+
+        {% if session.username != user.username %}
+        <form method="POST" class="review-form">
+            <textarea name="review" placeholder="Оставьте отзыв..." required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

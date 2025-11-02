@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Freelance Platform{% endblock %}</title>
+
+    
+    <!-- Подключаем CSS только через Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Верхняя панель -->
+    <header>
+        <nav class="navbar">
+            <a href="{{ url_for('index') }}" class="logo">Freelance<span>Hub</span></a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('projects') }}">Задания</a>
+                <a href="{{ url_for('add_project') }}">Добавить</a>
+                <a href="{{ url_for('search') }}">исполнители</a>
+
+                {% if session.get('username') %}
+                    <span class="welcome">👋 {{ session['username'] }}</span>
+                    <a href="{{ url_for('logout') }}" class="logout">Выход</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Вход</a>
+                    <a href="{{ url_for('register') }}">Регистрация</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <p>© 2025 FreelanceHub. Все права защищены.</p>
+    </footer>
+</body>
+</html>

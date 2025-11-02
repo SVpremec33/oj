@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+
+<section class="auth-section">
+  <h2>Создать аккаунт</h2>
+
+  <form action="/register" method="post" class="auth-form">
+      <div class="form-group">
+          <label for="username">Имя пользователя:</label>
+          <input type="text" id="username" name="username" required>
+      </div>
+
+      <div class="form-group">
+          <label for="password">Пароль:</label>
+          <input type="password" id="password" name="password" required>
+      </div>
+
+      <div class="form-group">
+          <label for="role">Выберите роль:</label>
+          <select name="role" id="role" required>
+              <option value="client">Заказчик</option>
+              <option value="freelancer">Фрилансер</option>
+          </select>
+      </div>
+
+      <div class="form-group" id="skills-field" style="display:none;">
+          <label for="skills">Навыки (через запятую):</label>
+          <input type="text" id="skills" name="skills" placeholder="Python, дизайн, копирайтинг">
+      </div>
+
+      <button type="submit" class="btn">Зарегистрироваться</button>
+  </form>
+
+  <p class="redirect-text">
+      Уже есть аккаунт? <a href="/login">Войти</a>
+  </p>
+</section>
+
+<script>
+document.getElementById('role').addEventListener('change', function() {
+  const skillsField = document.getElementById('skills-field');
+  if (this.value === 'freelancer') {
+      skillsField.style.display = 'block';
+  } else {
+      skillsField.style.display = 'none';
+  }
+});
+</script>
+
+{% endblock %}
